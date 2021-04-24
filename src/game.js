@@ -33,23 +33,22 @@ class Game {
   }
 
   draw() {
-    this.bg.draw()
-    this.helicopter.draw()
-    this.obstacles.forEach(o => {
-      o.draw()
-    })
+    this.bg.draw();
+    this.helicopter.draw();
+    this.obstacles.forEach((o) => {
+      o.draw();
+    });
 
     // TODO: draw everything
   }
 
   move() {
     // TODO: move everything
-    this.bg.move()
-    this.helicopter.move()
-    this.obstacles.forEach(o => {
-      o.move()
-    })
-
+    this.bg.move();
+    this.helicopter.move();
+    this.obstacles.forEach((o) => {
+      o.move();
+    });
   }
 
   checkCollisions() {
@@ -58,6 +57,7 @@ class Game {
   }
 
   onKeyEvent(event) {
+    this.helicopter.onKeyEvent(event);
     // TODO
   }
 
