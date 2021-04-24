@@ -2,14 +2,21 @@ class Game {
   constructor(ctx) {
     this.ctx = ctx;
     this.intervalId = null;
-    this.tick = 0
+    this.tick = 0;
 
-    this.bg = new Background(ctx)
-    this.helicopter = new Helicopter(ctx)
-    this.obstacles = []
+    this.bg = new Background(ctx);
+    this.helicopter = new Helicopter(ctx);
+    this.obstacles = [];
   }
 
   start() {
+    this.intervalId = setInterval(() => {
+      this.clear();
+      this.move();
+      this.draw();
+      this.checkCollisions();
+      this.clearObstacles();
+    }, 1000 / 60);
     // TODO: loop. clear, draw, move, addObstacle, checkCollisions, clearObstacles
   }
 
@@ -22,7 +29,7 @@ class Game {
   }
 
   clear() {
-    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
+    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
 
   draw() {
@@ -43,7 +50,7 @@ class Game {
   }
 
   gameOver() {
-    clearInterval(this.intervalId)
+    clearInterval(this.intervalId);
 
     this.ctx.font = "40px Comic Sans MS";
     this.ctx.textAlign = "center";
