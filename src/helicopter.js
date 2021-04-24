@@ -56,6 +56,7 @@ class Helicopter {
     this.vx += this.ax;
     this.x += this.vx;
     this.y += this.vy;
+    this.weapon.move()
     // TODO: move
   }
 
@@ -63,14 +64,28 @@ class Helicopter {
     if (event.type === "keydown") {
       switch (event.keyCode) {
         case UP:
-          console.log("hola");
           this.ay = -0.2;
+          break;
+        case SPACE: 
+          this.weapon.shoot()
+          break;
+        case RIGHT: 
+          this.ax = 0.2
+          break;
+        case LEFT:
+          this.ax = -0.2
           break;
       }
     } else {
       switch (event.keyCode) {
         case UP:
           this.ay = 0;
+          break;
+        case RIGHT:
+          this.ax = 0;
+          break;
+        case LEFT: 
+          this.ax = 0;
           break;
       }
     }
