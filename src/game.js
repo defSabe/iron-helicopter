@@ -6,8 +6,9 @@ class Game {
 
     this.bg = new Background(ctx);
     this.helicopter = new Helicopter(ctx);
-    this.obstacles = [
-      new Obstacle(this.ctx)];
+    this.obstacles = [new Obstacle(this.ctx)];
+
+    this.score = new Score(ctx);
   }
 
   start() {
@@ -17,27 +18,27 @@ class Game {
       this.draw();
       this.checkCollisions();
       this.clearObstacles();
-      this.tick++
+      this.tick++;
       if (this.tick >= 100) {
         this.addObstacle();
         this.tick = 0;
       }
+      if (this.tick % 10 === 0) {
+        this.score.value++;
+      }
     }, 1000 / 60);
-
-    
   }
 
   clearObstacles() {
-    this.obstacles = this.obstacles.filter(o =>{
-      return o.isVisible()
-    })
+    this.obstacles = this.obstacles.filter((o) => {
+      return o.isVisible();
+    });
     // TODO: filter only visible obstacles (call o.isVisible())
-
   }
 
   addObstacle() {
-    const newObstacle = new Obstacle(this.ctx)
-    this.obstacles.push(newObstacle)
+    const newObstacle = new Obstacle(this.ctx);
+    this.obstacles.push(newObstacle);
     // TODO: add new Obstacle every 100 ticks
   }
 
@@ -51,8 +52,7 @@ class Game {
     this.obstacles.forEach((o) => {
       o.draw();
     });
-
-    // TODO: draw everything
+    this.score.draw();
   }
 
   move() {
@@ -65,21 +65,19 @@ class Game {
   }
 
   checkCollisions() {
-    const collisions = this.obstacles.some(obstacle => { 
-      const colX = (
-        this.helicopter.x + this.helicopter.w >= obstacle.x && 
-        this.helicopter.x <= obstacle.x + obstacle.w
-      )
-      const colY = (
+    const collisions = this.obstacles.some((obstacle) => {
+      const colX =
+        this.helicopter.x + this.helicopter.w >= obstacle.x &&
+        this.helicopter.x <= obstacle.x + obstacle.w;
+      const colY =
         this.helicopter.y + this.helicopter.h >= obstacle.y &&
-        this.helicopter.y <= obstacle.y + obstacle.h
-      )  
+        this.helicopter.y <= obstacle.y + obstacle.h;
 
-      return colX && colY 
-    })
+      return colX && colY;
+    });
 
-    if (collisions || this.helicopter.isFloor() ) {
-     this.gameOver()
+    if (collisions || this.helicopter.isFloor()) {
+      this.gameOver();
     }
     // TODO: check helicopter on floor?
     // TODO: iterate obstacles. check colX and colY
