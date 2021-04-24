@@ -9,8 +9,7 @@ class Helicopter {
     this.w = 100
     this.h = 40
 
-    this.x = 0
-    this.y = 0
+    
     this.vx = 0
     this.vy = 0
     this.ay = 0
@@ -27,6 +26,20 @@ class Helicopter {
   }
 
   draw() {
+    this.ctx.drawImage(
+      this.img,
+      this.img.frameIndex * this.img.width / this.img.frames,
+      0,
+      this.img.width,
+      this.img.height / 4,
+      this.x,
+      this.y,
+      this.w,
+      this.h
+      )
+
+
+    
     // TODO: draw helicopter image
 
     this.weapon.draw()
@@ -34,13 +47,35 @@ class Helicopter {
 
   isFloor() {
     // TODO: check if floor
+    
   }
 
   move() {
+    this.vy += this.g
+    this.vy += this.ay
+    this.vx += this.ax
+    this.x += this.vx
+    this.y += this.vy
     // TODO: move
   }
 
   onKeyEvent(event) {
-    // TODO
+    if(event.type === 'keydown') {
+      switch(event.keyCode) {
+        case UP: 
+        console.log('hola')
+         this.ay = -0.2
+         break;
+         
+      }
+    } else {
+      switch(event.keyCode) {
+        case UP: 
+         this.ay = 0
+         break;
+      }
+
+    }
   }
+
 }
